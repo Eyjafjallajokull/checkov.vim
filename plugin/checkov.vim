@@ -13,7 +13,7 @@ function! s:checkov() abort
 		let &g:errorformat='%ECheck:\ %s:\ %m,%C	FAILED\ for\ resource:\ %m,%C	File:\ %f:%l-%e,%C	%s,%Z'
 
 		" get the latest checkov comments and open the quick fix window with them
-		cgetexpr system('checkov --quiet --compact --directory . --output cli 2>/dev/null | gsed "s/File: /File: ./"') | cw
+		cgetexpr system('checkov --quiet --compact --directory . --output cli 2>/dev/null \| gsed "s/File: /File: ./"') | cw
 		call setqflist([], 'a', {'title' : ':Checkov'})
 	finally
 		" restore the errorformat value
