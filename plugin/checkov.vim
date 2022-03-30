@@ -10,10 +10,11 @@ function! s:checkov() abort
 		let errorformat = &g:errorformat
 
  		" set the error format for use with checkov
-		let &g:errorformat='%ECheck:\ %s:\ %m,%C	FAILED\ for\ resource:\ %m,%C	File:\ %f:%l-%e,%C	%s,%Z'
+		let &g:errorformat='%ECheck:\ %m:\ %m,%C	FAILED\ for\ resource:\ %m,%C	File:\ %f:%l,%C	%s,%Z'
 
+		let s:cmd='date;checkov --quiet --directory . --output cli 2>/dev/null | gsed "s/File: /File: ./"'
 		" get the latest checkov comments and open the quick fix window with them
-		cgetexpr system('checkov --quiet --compact --directory . --output cli 2>/dev/null \| gsed "s/File: /File: ./"') | cw
+		cgetexpr system(s:cmd) | cw
 		call setqflist([], 'a', {'title' : ':Checkov'})
 	finally
 		" restore the errorformat value
